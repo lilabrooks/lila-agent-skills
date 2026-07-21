@@ -58,6 +58,9 @@ Run the full quality gate after changing a skill or repository tooling:
 make check
 ```
 
+Git hooks are optional. Use `make check` before a standard commit; GitHub
+Actions runs the same target.
+
 The full gate checks formatting, lint, types, YAML, package structure,
 behavioral contracts, tests, coverage, probable credentials, and Git whitespace.
 GitHub Actions runs the same target.
