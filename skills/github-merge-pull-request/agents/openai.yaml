@@ -1,0 +1,6 @@
+interface:
+  display_name: "GitHub Merge Pull Request"
+  short_description: "Merge GitHub pull requests with explicit methods"
+  default_prompt: "Use $github-merge-pull-request to inspect and merge this GitHub pull request with the method and authority boundary I specify."
+policy:
+  allow_implicit_invocation: false

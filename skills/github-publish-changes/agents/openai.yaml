@@ -1,0 +1,6 @@
+interface:
+  display_name: "GitHub Publish Changes"
+  short_description: "Publish exact Git candidates with tight scope"
+  default_prompt: "Use $github-publish-changes to publish this exact local Git candidate while preserving staging and stopping at my requested boundary."
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Verify Repository"
+  short_description: "Run evidence-based repository readiness checks"
+  default_prompt: "Use $verify-repository to perform final QA on this repository and report any blockers."

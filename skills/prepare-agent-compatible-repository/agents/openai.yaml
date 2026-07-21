@@ -1,0 +1,6 @@
+interface:
+  display_name: "Prepare Agent-Compatible Repository"
+  short_description: "Reconcile Codex and Claude repository instructions"
+  default_prompt: "Use $prepare-agent-compatible-repository to audit and reconcile this repository for consistent Codex and Claude Code use."
+policy:
+  allow_implicit_invocation: false

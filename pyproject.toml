@@ -1,0 +1,68 @@
+[project]
+name = "my-skills-quality"
+version = "0.0.0"
+description = "Quality tooling for a personal Agent Skills collection"
+requires-python = ">=3.10"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "detect-secrets>=1.5,<2",
+    "mypy>=2.2,<3",
+    "pytest>=9,<10",
+    "pytest-cov>=7,<8",
+    "pyyaml>=6,<7",
+    "ruff>=0.15,<0.16",
+    "types-pyyaml>=6,<7",
+    "yamllint>=1.38,<2",
+]
+
+[tool.uv]
+package = false
+required-version = "==0.11.29"
+cache-dir = ".uv-cache"
+
+[tool.ruff]
+target-version = "py310"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I", "UP", "B", "S", "SIM", "PL", "RUF"]
+ignore = [
+    "E501",  # Markdown-rich command output is clearer without forced wrapping.
+    "PLR2004",  # Exit codes and format limits are readable as inline constants.
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "S603", "S607"]
+"scripts/check_secrets.py" = ["S603", "S607"]
+"skills/github-publish-changes/scripts/publish_preflight.py" = ["S603"]
+"skills/verify-repository/scripts/repo_audit.py" = ["S603", "S607"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+files = [
+    "scripts",
+    "skills/github-publish-changes/scripts",
+    "skills/verify-repository/scripts",
+]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-config --strict-markers"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = [
+    "scripts",
+    "skills/github-publish-changes/scripts",
+    "skills/verify-repository/scripts",
+]
+patch = ["subprocess"]
+disable_warnings = ["no-data-collected"]
+
+[tool.coverage.report]
+fail_under = 95
+show_missing = true
+skip_covered = true

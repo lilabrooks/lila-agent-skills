@@ -1,0 +1,19 @@
+.DS_Store
+.coverage
+.coverage [0-9]*
+coverage.xml
+htmlcov/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.uv-cache/
+.venv/
+__pycache__/
+*.py[cod]
+.claude/settings.local.json
+CLAUDE.local.md
+.env
+.env.*
+!.env.example
+.codex-skill-work/
+.skill-tests/

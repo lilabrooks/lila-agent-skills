@@ -1,0 +1,7 @@
+interface:
+  display_name: "Clean Git Branches"
+  short_description: "Audit and clean synchronized Git branches"
+  default_prompt: "Use $clean-git-branches to audit stale branches and safely synchronize my local and remote Git refs."
+
+policy:
+  allow_implicit_invocation: false
