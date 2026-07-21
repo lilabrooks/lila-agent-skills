@@ -179,8 +179,11 @@ workflow.
 Dependabot alerts and security updates are controlled through GitHub repository
 settings. GitHub can raise version-update pull requests for SHA-pinned actions.
 Dependabot alerts require semantic-version action references, so SHA references
-need separate advisory review. Review the exact uv runtime requirement in
-`pyproject.toml` separately during dependency maintenance.
+need separate advisory review. The uv runtime requirement accepts patch releases
+within one minor line because uv [documents patch releases as
+non-breaking](https://docs.astral.sh/uv/reference/policies/versioning/). GitHub
+Actions resolves the highest matching version through `setup-uv`. Review the
+lower bound and minor-version ceiling separately during dependency maintenance.
 
 ## Deliberate deferrals
 
