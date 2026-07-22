@@ -1,0 +1,4 @@
+interface:
+  display_name: "Write Repository README"
+  short_description: "Create and audit clear repository READMEs"
+  default_prompt: "Use $write-repository-readme to create or improve this repository README."
