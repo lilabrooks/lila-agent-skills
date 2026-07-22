@@ -108,11 +108,12 @@ Do not retry with a weaker guard, another method, auto-merge, or administrator p
 
 Never pass `--delete-branch` as part of the merge command. Finish and verify the merge first.
 
-When branch deletion was separately requested, apply a branch-cleanup workflow to the exact recorded
-head SHA. Protect default and protected branches, forks outside the user's authority, branches used
-by open pull requests, branches checked out in any worktree, and branches whose tips changed. Keep
-the branch when safety cannot be proved, and report why. Treat merge success followed by cleanup
-failure as a partial result.
+When branch deletion was separately requested, hand the exact recorded head SHA to
+`$clean-git-branches` when available. Keep deletion outside this merge workflow. Protect default and
+protected branches, forks outside the user's authority, branches used by open pull requests,
+branches checked out in any worktree, and branches whose tips changed. Keep the branch when safety
+cannot be proved, and report why. Treat merge success followed by cleanup failure as a partial
+result.
 
 ## 6. Verify and report
 

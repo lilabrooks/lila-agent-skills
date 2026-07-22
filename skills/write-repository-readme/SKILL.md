@@ -43,6 +43,20 @@ navigation, relative links, or where long-form material belongs.
 - Keep commits, pushes, pull requests, releases, and remote repository metadata outside this skill
   unless the user requests those actions through the matching workflow.
 
+## Skill handoffs
+
+- Hand changes to `AGENTS.md`, `CLAUDE.md`, agent settings, hooks, or host compatibility to
+  `$prepare-agent-compatible-repository` when available.
+- Hand whole-repository readiness, coverage, and hygiene audits to `$verify-repository` when
+  available. Pass along the unchanged tree and README checks already completed.
+- Hand ordinary commits, pushes, branch publication, and pull-request creation to the host's
+  publishing workflow. Use `$github-publish-changes` only when the user selected it or needs its
+  specialized exact-candidate, mixed-worktree, fork, force-lease, or CI behavior.
+- Hand the merge of an existing pull request to `$github-merge-pull-request` after the user grants
+  merge authority.
+- Hand local or remote branch deletion to `$clean-git-branches` after the user grants cleanup
+  authority.
+
 ## 1. Establish the repository facts
 
 Inspect the current README when it exists, then inspect enough of the repository to test what it
