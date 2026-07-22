@@ -18,6 +18,7 @@ references, or scripts.
 | `github-publish-changes` | Commits and pushes intended Git changes while preserving unrelated work. | Includes read-only preflight, exact-tree checks, edge-case references, and a changelog. |
 | `prepare-agent-compatible-repository` | Audits and reconciles repository guidance for Codex and Claude Code. | Uses shared `AGENTS.md` rules, small `CLAUDE.md` adapters, scope checks, and explicit host differences. |
 | `verify-repository` | Runs evidence-based repository readiness, QA, coverage, and hygiene audits. | Includes a read-only repository audit script. |
+| `write-repository-readme` | Creates, audits, and revises README files for new or existing repositories. | Checks structure, navigation, length, rendered flow, links, commands, badges, and repository facts. |
 
 ## Agent compatibility
 
@@ -25,6 +26,11 @@ The core workflow for each package lives in `SKILL.md`. Optional
 `agents/openai.yaml` files add Codex interface metadata and can be ignored by
 other Agent Skills-compatible hosts. A skill may still name a specific host
 when its workflow depends on that host's tools or conventions.
+
+`write-repository-readme` keeps its workflow host-neutral and uses only the
+shared Agent Skills `name` and `description` frontmatter. Invoke it as
+`$write-repository-readme` in Codex or `/write-repository-readme` in Claude
+Code. Its `agents/openai.yaml` file changes Codex presentation only.
 
 This repository keeps shared agent instructions in [AGENTS.md](AGENTS.md). The
 root [CLAUDE.md](CLAUDE.md) imports those instructions for Claude Code.

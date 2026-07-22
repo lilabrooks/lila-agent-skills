@@ -67,6 +67,16 @@ Independent copies under `~/.codex/skills/` are unsupported because they can
 drift silently. Preserve and compare any legacy copy before replacing it with a
 link.
 
+### Cross-host skill packages
+
+Shared `SKILL.md` files follow the Agent Skills package shape and keep their
+core workflow usable in Codex and Claude Code. Use the common `name` and
+`description` frontmatter unless a workflow has a proved host requirement.
+Describe tools by capability and leave permission decisions to the active host.
+Optional `agents/openai.yaml` files hold Codex interface metadata; shared
+instructions cannot depend on them. Put a host-only extension in an optional
+adapter and document why it is needed.
+
 ### Python style and correctness
 
 Ruff is both formatter and linter, which avoids conflicting formatters. The rule
@@ -135,10 +145,11 @@ selection, exact refspecs and force leases, strict push exception modes,
 pull-request merge-method selection, exact head-SHA guards, merge-state
 verification, shared agent-instruction imports, nested scope,
 audit-versus-repair boundaries, repository-readiness uncertainty, read-only
-branch and repository audits, recorded-SHA deletion evidence, and commit, push,
-merge, bypass, delayed-merge, repair, or branch-deletion authorization
-boundaries. Authorization and verification checks are hard gates in their
-scenarios. Contract mutation
+branch and repository audits, README evidence and edit boundaries, rendered-view
+claims, table-of-contents and relative-link checks, documented-command safety,
+recorded-SHA deletion evidence, and commit, push, merge, bypass, delayed-merge,
+repair, or branch-deletion authorization boundaries. Authorization and
+verification checks are hard gates in their scenarios. Contract mutation
 checks remove required instructions and inject forbidden weakening language;
 every mutation must be detected.
 
