@@ -175,10 +175,12 @@ archive.
 
 ### Continuous integration
 
-GitHub Actions invokes the same `make check` target used locally. The workflow
-has read-only repository permissions. The official uv setup action is pinned to
-an immutable commit, as is the official checkout action. Review and update those
-pins when either action publishes a security or maintenance release.
+The Quality workflow invokes the same `make check` target used locally and has
+read-only repository permissions. The Pages workflow publishes the static
+`docs/` catalog with the minimum `pages: write` and `id-token: write`
+permissions required by GitHub Pages. Official actions in both workflows are
+pinned to immutable commits. Review and update those pins when an action
+publishes a security or maintenance release.
 
 ### Dependency updates
 
@@ -211,9 +213,11 @@ lower bound and minor-version ceiling separately during dependency maintenance.
   of truth. Add a thin pre-commit wrapper only if contributors repeatedly forget
   to run the gate; it should call existing targets rather than duplicate tool
   configuration.
-- Actionlint is deferred because the repository has one small workflow and no
-  local Go toolchain. Yamllint catches YAML defects and GitHub validates workflow
-  semantics on publication. Add actionlint when workflow logic expands.
+- Actionlint is deferred because the repository's 2 workflows use small,
+  documented action sequences and the repository has no local Go toolchain.
+  Yamllint catches YAML defects, and GitHub validates workflow semantics on
+  publication. Revisit this if custom expressions, matrices, or job dependency
+  logic grows.
 
 ## Updating the gate
 

@@ -9,6 +9,10 @@ Agent Skills packages. Every direct child of `skills/` is independently
 installable and contains a required `SKILL.md` plus any supporting metadata,
 references, or scripts.
 
+[Browse the one-page skill catalog](https://lilabrooks.github.io/lila-agent-skills/)
+for a compact overview. This README and each package's `SKILL.md` remain the
+canonical documentation.
+
 ## Skill inventory
 
 | Skill | Purpose | Notes |
@@ -55,6 +59,24 @@ Check each destination before creating a link. Preserve or remove an existing
 installation deliberately so unique work is not overwritten. Legacy standalone
 copies under `~/.codex/skills/` are unsupported because they can drift from the
 packages checked in this repository.
+
+## Catalog site
+
+The static catalog lives in `docs/` and is published to GitHub Pages by
+`.github/workflows/pages.yml`. The repository must use **GitHub Actions** as its
+Pages source.
+
+Preview it locally from the repository root:
+
+```bash
+python -m http.server 8000 --directory docs
+```
+
+The catalog vendors the published Compact Theme v1.0.0 CSS, JavaScript, fonts,
+and license files under `docs/theme/`. Update those files from a tagged
+[Compact Theme release](https://github.com/lilabrooks/compact-theme/releases)
+rather than from an unversioned branch. Keep installation and compatibility
+details here, and keep each workflow's full instructions in its `SKILL.md`.
 
 ## Repository checks
 

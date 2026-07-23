@@ -1,0 +1,11 @@
+Compact Theme
+
+Compact Theme — Copyright (c) 2026 Lila Brooks
+Licensed under the BSD 2-Clause License.
+
+Free use, modification, and redistribution are permitted under the conditions
+in LICENSE. Redistributed copies must retain the copyright notice, licence
+conditions, and disclaimer.
+
+The bundled IBM Plex font files retain their original copyright and licence,
+provided separately in fonts/LICENSE.txt.
