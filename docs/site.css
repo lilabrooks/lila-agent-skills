@@ -1,0 +1,54 @@
+.catalog-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin: 22px 0 0;
+  color: var(--compact-muted);
+  font-family: var(--compact-mono);
+  font-size: 0.78rem;
+}
+
+.catalog-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.catalog-card .compact-card-title code,
+.install-card .compact-card-title code {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  overflow-wrap: anywhere;
+}
+
+.catalog-card-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-top: auto !important;
+  padding-top: 30px;
+  font-family: var(--compact-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.install-card {
+  min-height: 0;
+}
+
+.install-card pre,
+.install-card .compact-code-frame {
+  margin-top: 24px;
+}
+
+@media (min-width: 1080px) {
+  .project-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .project-grid .compact-card-title {
+    font-size: 1.4rem;
+  }
+}
