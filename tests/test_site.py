@@ -59,7 +59,12 @@ def test_catalog_links_every_skill_package_once() -> None:
 def test_every_stated_skill_count_matches_the_inventory() -> None:
     html = SITE_INDEX.read_text(encoding="utf-8")
     total = len(skill_names())
-    expected = {str(total), NUMBER_WORDS[total]}
+    word = NUMBER_WORDS.get(total)
+    assert word is not None, (
+        f"the site spells counts as words; add {total} to NUMBER_WORDS "
+        "or switch the site copy to numerals"
+    )
+    expected = {str(total), word}
 
     stated = [match.group("count") for match in STATED_COUNT.finditer(html)]
     assert stated, "the site states no skill count"

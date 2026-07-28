@@ -21,8 +21,8 @@ it. Every file is generated from that repository's facts and becomes ordinary pr
   updater, version stamp, manifest, or routine log. This skill writes documents only.
 - Add no Kit Light version, provenance digest, or upgrade relationship to an approved file. Once
   accepted, a file is ordinary target-owned content with no tie back to this skill.
-- Hand instruction and host-configuration changes to `$prepare-agent-compatible-repository`. That
-  skill owns `AGENTS.md`, `CLAUDE.md`, nested instruction scope, and host settings.
+- Hand instruction and host-configuration changes to the `prepare-agent-compatible-repository`
+  skill. That skill owns `AGENTS.md`, `CLAUDE.md`, nested instruction scope, and host settings.
 
 ## 1. Inspect the target
 
@@ -117,21 +117,23 @@ memory files on disk until their trigger applies, and do not put Claude-style `@
 ## 7. Apply, route, and verify
 
 Treat each memory file and its instruction route as one approval unit. Do not write a file whose
-route is unresolved: before writing, confirm that the applicable `AGENTS.md` already routes to it or
-that the owner approved the handoff that adds the route.
+route is unresolved: before writing, either confirm that the applicable `AGENTS.md` already carries
+the exact route, or obtain the owner's approval for the route change that adds it.
 
 1. Apply only the files the owner approved, generating each from target facts rather than copying a
    canonical template.
-2. Hand each approved route to `$prepare-agent-compatible-repository`, which applies or reconciles
-   the concise instruction and keeps `CLAUDE.md` importing the applicable `AGENTS.md`. Do not
-   duplicate that procedure here.
+2. Resolve each route. When the exact route already exists, record it and continue. When a route
+   change is required, hand it to the `prepare-agent-compatible-repository` skill, which applies or
+   reconciles the concise instruction and keeps `CLAUDE.md` importing the applicable `AGENTS.md`.
+   Do not duplicate that procedure here.
 3. Run the target's applicable checks. Limit repairs to the approved paths, and when a check reveals
    a required edit outside them, stop and request approval instead of widening the change.
 4. Confirm by rereading the instruction chain that each accepted file is reachable from a loaded
    instruction or an explicit task trigger.
 
-When `$prepare-agent-compatible-repository` is unavailable, stop and report a routing blocker before
-writing. An accepted file that no loaded instruction reaches is an unfinished adoption.
+When a route change is required and the `prepare-agent-compatible-repository` skill is unavailable,
+stop and report a routing blocker before writing. An accepted file that no loaded instruction
+reaches is an unfinished adoption.
 
 Report the files inspected, proposed, accepted, and rejected; the evidence behind each accepted
 file; the routes handed off; the checks run and their results; and any need the evidence could not

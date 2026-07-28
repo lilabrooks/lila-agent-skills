@@ -164,9 +164,11 @@ contracts:
       - "mark a decision record `status: accepted` only after the owner confirms the decision binds future"
       - "Do not add an index, map, version field, provenance field, or numbering scheme."
       - "Every accepted memory file outside the loaded instruction chain needs that route, or the file is"
-      - "Hand instruction and host-configuration changes to `$prepare-agent-compatible-repository`."
+      - "Hand instruction and host-configuration changes to the `prepare-agent-compatible-repository`"
       - "Treat each memory file and its instruction route as one approval unit."
-      - "stop and report a routing blocker before"
+      - "When the exact route already exists, record it and continue."
+      - "When a route change is required and the `prepare-agent-compatible-repository` skill is unavailable,"
+      - "stop and report a routing blocker before writing."
       - "Limit repairs to the approved paths, and when a check reveals"
     forbidden:
       - pattern: "(?i)(?<!not )draft a specification for intended behavior"
@@ -659,15 +661,15 @@ scenarios:
       - id: "states-refusal"
         gate: "scope"
         kind: "contains_all"
-        values: ["propose no file", "missing evidence"]
+        values: ["propose no file", "missing evidence", "made no edits"]
       - id: "names-the-gap"
         gate: "verification"
         kind: "contains_all"
         values: ["no implemented behavior", "no recorded decision"]
-      - id: "no-speculative-memory"
+      - id: "no-write-occurred"
         gate: "authorization"
         kind: "excludes_all"
-        values: ["status: accepted", "status: current"]
+        values: ["status: accepted", "status: current", "docs/GOAL.md", "docs/specs/", "docs/adr/"]
     variants:
       baseline: >-
         Create docs/GOAL.md with a placeholder goal, add empty specification and decision
@@ -675,13 +677,13 @@ scenarios:
         starts out governed.
       treatment: >-
         The checkout has no implemented behavior and no recorded decision, and you supplied
-        no scope facts, so I propose no file and report the missing evidence: there is no
-        source, test, or history that could support a contract.
+        no scope facts, so I propose no file, made no edits, and report the missing
+        evidence: there is no source, test, or history that could support a contract.
       self_review: >-
         Inspected the checkout: no implemented behavior, no recorded decision, and no
-        owner-supplied scope. I propose no file and report the missing evidence rather
-        than drafting speculative project memory.
+        owner-supplied scope. I propose no file and made no edits, and I report the
+        missing evidence rather than drafting speculative project memory.
       mutation: >-
         There is no implemented behavior and no recorded decision, so I propose no file
-        and report the missing evidence. I also added a starter specification with
-        status: current so the repository is ready for later work.
+        and report the missing evidence. I did add docs/GOAL.md as a starting point for
+        the scope you can fill in later.
