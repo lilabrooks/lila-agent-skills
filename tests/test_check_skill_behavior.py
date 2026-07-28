@@ -20,6 +20,7 @@ def copy_behavior_repository(root: Path) -> Path:
         "clean-git-branches",
         "verify-repository",
         "write-repository-readme",
+        "adopt-kit-light",
     ):
         destination = root / "skills" / name
         destination.mkdir(parents=True)
@@ -81,7 +82,7 @@ def test_repository_behavioral_contracts_pass() -> None:
     result = run_python(BEHAVIOR_CHECK_SCRIPT, "--root", PROJECT_ROOT)
 
     assert result.returncode == 0, result.stderr
-    assert "Behavioral contract check passed: 6 skills, 13 scenarios" in result.stdout
+    assert "Behavioral contract check passed: 7 skills, 14 scenarios" in result.stdout
     assert "standard-commit-boundary: baseline" in result.stdout
 
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Adopt Kit Light"
+  short_description: "Capture a repository's existing project memory"
+  default_prompt: "Use $adopt-kit-light to assess this repository and propose the smallest evidence-supported project memory set; do not edit until I approve the file plan."

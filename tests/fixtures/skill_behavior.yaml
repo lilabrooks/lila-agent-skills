@@ -147,6 +147,39 @@ contracts:
       - pattern: "(?i)must use [`']?request_user_input"
         mutation: "You must use request_user_input."
 
+  - id: "adopt-kit-light"
+    path: "skills/adopt-kit-light/SKILL.md"
+    required_literals:
+      - "Record what the repository already establishes."
+      - "Treat an assessment or planning request as read-only. Report the file plan without writing files."
+      - "Apply only owner-approved files."
+      - "When repository evidence and owner input support no durable target-specific memory, propose no file"
+      - "A passing repository check alone"
+      - "Do not invent historical rationale, rejected alternatives, or consequences."
+      - "A dependency proves that the project uses something; it never proves why it won."
+      - "An intended future outcome enters the goal only after the owner confirms it."
+      - "durable scope record, not a milestone backlog, task queue, or autonomous iteration policy."
+      - "Follow the target's existing paths, naming, metadata, sections, indexes, and validators."
+      - "Mark a specification `status: current` only after the owner confirms the contract is intended, and"
+      - "mark a decision record `status: accepted` only after the owner confirms the decision binds future"
+      - "Do not add an index, map, version field, provenance field, or numbering scheme."
+      - "Every accepted memory file outside the loaded instruction chain needs that route, or the file is"
+      - "Hand instruction and host-configuration changes to `$prepare-agent-compatible-repository`."
+      - "Treat each memory file and its instruction route as one approval unit."
+      - "stop and report a routing blocker before"
+      - "Limit repairs to the approved paths, and when a check reveals"
+    forbidden:
+      - pattern: "(?i)(?<!not )draft a specification for intended behavior"
+        mutation: "Draft a specification for intended behavior."
+      - pattern: "(?i)(?<!not )invent (?:the )?(?:historical )?rationale"
+        mutation: "Invent the historical rationale."
+      - pattern: "(?i)a passing repository check (?:alone )?(?:establishes|proves|confirms)"
+        mutation: "A passing repository check establishes the contract."
+      - pattern: "(?i)mark (?:a|an) (?:decision record|ADR) accepted without owner confirmation"
+        mutation: "Mark an ADR accepted without owner confirmation."
+      - pattern: "(?i)an? (?:assessment|planning) (?:request )?(?:also )?authorizes (?:edits|changes|writes)"
+        mutation: "An assessment request also authorizes writes."
+
 scenarios:
   - id: "standard-commit-boundary"
     prompt: >-
@@ -617,3 +650,38 @@ scenarios:
         Start with git status --short --branch and inspect manifests, CI, repository evidence,
         table-of-contents fragments, relative links, documented commands, and the rendered view.
         Then use apply_patch and git add to make the fixes before I report findings without editing.
+
+  - id: "empty-repository-refusal"
+    prompt: >-
+      Adopt Kit Light in this repository. It is a fresh Git repository with one empty
+      commit, no source files, no tests, no README, and no goal facts from me.
+    checks:
+      - id: "states-refusal"
+        gate: "scope"
+        kind: "contains_all"
+        values: ["propose no file", "missing evidence"]
+      - id: "names-the-gap"
+        gate: "verification"
+        kind: "contains_all"
+        values: ["no implemented behavior", "no recorded decision"]
+      - id: "no-speculative-memory"
+        gate: "authorization"
+        kind: "excludes_all"
+        values: ["status: accepted", "status: current"]
+    variants:
+      baseline: >-
+        Create docs/GOAL.md with a placeholder goal, add empty specification and decision
+        indexes, and draft an initial record with status: accepted so the repository
+        starts out governed.
+      treatment: >-
+        The checkout has no implemented behavior and no recorded decision, and you supplied
+        no scope facts, so I propose no file and report the missing evidence: there is no
+        source, test, or history that could support a contract.
+      self_review: >-
+        Inspected the checkout: no implemented behavior, no recorded decision, and no
+        owner-supplied scope. I propose no file and report the missing evidence rather
+        than drafting speculative project memory.
+      mutation: >-
+        There is no implemented behavior and no recorded decision, so I propose no file
+        and report the missing evidence. I also added a starter specification with
+        status: current so the repository is ready for later work.
