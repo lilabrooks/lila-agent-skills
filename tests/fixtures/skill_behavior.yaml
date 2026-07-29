@@ -147,8 +147,8 @@ contracts:
       - pattern: "(?i)must use [`']?request_user_input"
         mutation: "You must use request_user_input."
 
-  - id: "adopt-kit-light"
-    path: "skills/adopt-kit-light/SKILL.md"
+  - id: "record-project-memory"
+    path: "skills/record-project-memory/SKILL.md"
     required_literals:
       - "Record what the repository already establishes."
       - "Treat an assessment or planning request as read-only. Report the file plan without writing files."
@@ -655,7 +655,7 @@ scenarios:
 
   - id: "empty-repository-refusal"
     prompt: >-
-      Adopt Kit Light in this repository. It is a fresh Git repository with one empty
+      Record project memory in this repository. It is a fresh Git repository with one empty
       commit, no source files, no tests, no README, and no goal facts from me.
     checks:
       - id: "states-refusal"

@@ -20,7 +20,7 @@ def copy_behavior_repository(root: Path) -> Path:
         "clean-git-branches",
         "verify-repository",
         "write-repository-readme",
-        "adopt-kit-light",
+        "record-project-memory",
     ):
         destination = root / "skills" / name
         destination.mkdir(parents=True)

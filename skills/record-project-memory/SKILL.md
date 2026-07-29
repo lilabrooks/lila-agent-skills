@@ -1,9 +1,9 @@
 ---
-name: adopt-kit-light
+name: record-project-memory
 description: Capture a repository's existing project knowledge as owner-approved goal, specification, and decision-record files that future agent tasks can find and use. Use when an agent plans, applies, or reviews Kit Light adoption in a target repository - adopting Kit Light, adding or reconciling durable project memory, recording an implemented contract as a specification, documenting an already-made decision as an ADR, or assessing what project memory a repository is missing. Record only what repository evidence and owner confirmation already establish, follow the target's existing document conventions and checks, and hand instruction-file and host-configuration work to prepare-agent-compatible-repository.
 ---
 
-# Adopt Kit Light
+# Record Project Memory
 
 Give a repository the smallest set of durable, target-owned memory files that its own evidence
 supports, so a later agent task loads the goal, contract, or decision it needs instead of rederiving
