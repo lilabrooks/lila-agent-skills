@@ -1,6 +1,6 @@
 ---
 name: record-project-memory
-description: Capture a repository's existing project knowledge as owner-approved goal, specification, and decision-record files that future agent tasks can find and use. Use when an agent plans, applies, or reviews Kit Light adoption in a target repository - adopting Kit Light, adding or reconciling durable project memory, recording an implemented contract as a specification, documenting an already-made decision as an ADR, or assessing what project memory a repository is missing. Record only what repository evidence and owner confirmation already establish, follow the target's existing document conventions and checks, and hand instruction-file and host-configuration work to prepare-agent-compatible-repository.
+description: Capture a repository's existing project knowledge as owner-approved goal, specification, and decision-record files that future agent tasks can find and use. Use when an agent plans, applies, or reviews durable project memory for a target repository - adding or reconciling project memory, recording an implemented contract as a specification, documenting an already-made decision as an ADR, or assessing what project memory a repository is missing. Record only what repository evidence and owner confirmation already establish, follow the target's existing document conventions and checks, and hand instruction-file and host-configuration work to prepare-agent-compatible-repository.
 ---
 
 # Record Project Memory
@@ -19,7 +19,7 @@ it. Every file is generated from that repository's facts and becomes ordinary pr
   credentials, generated state, and files the request did not name.
 - Create no executable, map format, checker, runner, hook, ledger, installable template, site,
   updater, version stamp, manifest, or routine log. This skill writes documents only.
-- Add no Kit Light version, provenance digest, or upgrade relationship to an approved file. Once
+- Add no tool version, provenance digest, or upgrade relationship to an approved file. Once
   accepted, a file is ordinary target-owned content with no tie back to this skill.
 - Hand instruction and host-configuration changes to the `prepare-agent-compatible-repository`
   skill. That skill owns `AGENTS.md`, `CLAUDE.md`, nested instruction scope, and host settings.
@@ -61,7 +61,7 @@ the owner only about gaps, contradictions, and choices the repository cannot est
 - **Non-goals:** what it deliberately does not do.
 - **Constraints:** fixed runtime, dependency, platform, and interface limits.
 
-An intended future outcome enters the goal only after the owner confirms it. A Kit Light goal is a
+An intended future outcome enters the goal only after the owner confirms it. A recorded goal is a
 durable scope record, not a milestone backlog, task queue, or autonomous iteration policy. Leave
 execution, iteration, and completion tracking to ordinary agent guidance and host features.
 
