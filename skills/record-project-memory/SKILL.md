@@ -135,6 +135,11 @@ When a route change is required and the `prepare-agent-compatible-repository` sk
 stop and report a routing blocker before writing. An accepted file that no loaded instruction
 reaches is an unfinished adoption.
 
+When an applicable check cannot start or finish, report the exact command and the blocker.
+Never substitute an undocumented command, install dependencies, change configuration, widen the
+approved paths, or claim verification passed without owner approval. Leave the approved changes
+visible and report verification as incomplete.
+
 Report the files inspected, proposed, accepted, and rejected; the evidence behind each accepted
 file; the routes handed off; the checks run and their results; and any need the evidence could not
 support. State plainly when the outcome was that no durable memory was warranted.
