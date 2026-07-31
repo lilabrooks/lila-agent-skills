@@ -17,6 +17,7 @@ canonical documentation.
 
 | Skill | Purpose | Notes |
 | --- | --- | --- |
+| `agent-browser-research-triage` | Decides when vercel-labs/agent-browser is worth using for web research. | Routes only browser-heavy, rendered-state, visual, or triage-heavy work to agent-browser while keeping ordinary citation research on built-in web tools. |
 | `record-project-memory` | Captures a repository's existing goal, contract, and decision knowledge as owner-approved project files. | Records only what evidence and owner confirmation establish, follows the target's own conventions, and routes each file for later discovery. |
 | `clean-git-branches` | Audits and safely cleans local and remote Git branches while checking that default-branch refs stay synchronized. | Handles squash-merged branches, pruning, exact-SHA checks, and verified deletion. |
 | `github-merge-pull-request` | Inspects and merges an exact GitHub pull-request candidate. | Covers merge, squash, and rebase methods; head-SHA guards; queues; bypasses; and separate cleanup authority. |
