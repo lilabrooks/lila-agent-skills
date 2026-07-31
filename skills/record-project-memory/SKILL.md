@@ -23,6 +23,7 @@ it. Every file is generated from that repository's facts and becomes ordinary pr
   accepted, a file is ordinary target-owned content with no tie back to this skill.
 - Hand instruction and host-configuration changes to the `prepare-agent-compatible-repository`
   skill. That skill owns `AGENTS.md`, `CLAUDE.md`, nested instruction scope, and host settings.
+  Never edit those files yourself, even to add a route this skill asked for.
 
 ## 1. Inspect the target
 
@@ -107,12 +108,18 @@ Before writing, present one plan listing, for each proposed file:
 3. The proposed content and status.
 4. The target checks that will run after it lands.
 5. Its instruction route: the exact path and read trigger a future agent needs in the applicable
-   `AGENTS.md` to find the file when it matters.
+   `AGENTS.md` to find the file when it matters, and the authority the file carries once found.
 
 Every accepted memory file outside the loaded instruction chain needs that route, or the file is
 written but never read. Name the route in the plan even though another skill applies it. Keep full
 memory files on disk until their trigger applies, and do not put Claude-style `@` imports in
 `AGENTS.md`. A goal file may route to the relevant specifications and decision records.
+
+A route that only says when to write a file leaves a later agent free to rewrite the accepted one it
+was meant to read. Unless the target's instructions already say so, the route for an accepted file
+also states that it binds later work, that only the owner may accept or supersede it, and that a
+conflicting task stops and asks instead of editing it. Propose no wording that lets a routine task
+change accepted content on its own judgment.
 
 ## 7. Apply, route, and verify
 
@@ -123,9 +130,10 @@ the exact route, or obtain the owner's approval for the route change that adds i
 1. Apply only the files the owner approved, generating each from target facts rather than copying a
    canonical template.
 2. Resolve each route. When the exact route already exists, record it and continue. When a route
-   change is required, hand it to the `prepare-agent-compatible-repository` skill, which applies or
-   reconciles the concise instruction and keeps `CLAUDE.md` importing the applicable `AGENTS.md`.
-   Do not duplicate that procedure here.
+   change is required, invoke the `prepare-agent-compatible-repository` skill and let it make the
+   instruction edit; writing the route yourself is not the handoff. It applies or reconciles the
+   concise instruction and keeps `CLAUDE.md` importing the applicable `AGENTS.md`. Do not duplicate
+   that procedure here, and name in the report which skill made each instruction edit.
 3. Run the target's applicable checks. Limit repairs to the approved paths, and when a check reveals
    a required edit outside them, stop and request approval instead of widening the change.
 4. Confirm by rereading the instruction chain that each accepted file is reachable from a loaded
