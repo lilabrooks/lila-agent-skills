@@ -23,6 +23,7 @@ it. Every file is generated from that repository's facts and becomes ordinary pr
   accepted, a file is ordinary target-owned content with no tie back to this skill.
 - Hand instruction and host-configuration changes to the `prepare-agent-compatible-repository`
   skill. That skill owns `AGENTS.md`, `CLAUDE.md`, nested instruction scope, and host settings.
+  Never edit those files yourself, even to add a route this skill asked for.
 
 ## 1. Inspect the target
 
@@ -129,9 +130,10 @@ the exact route, or obtain the owner's approval for the route change that adds i
 1. Apply only the files the owner approved, generating each from target facts rather than copying a
    canonical template.
 2. Resolve each route. When the exact route already exists, record it and continue. When a route
-   change is required, hand it to the `prepare-agent-compatible-repository` skill, which applies or
-   reconciles the concise instruction and keeps `CLAUDE.md` importing the applicable `AGENTS.md`.
-   Do not duplicate that procedure here.
+   change is required, invoke the `prepare-agent-compatible-repository` skill and let it make the
+   instruction edit; writing the route yourself is not the handoff. It applies or reconciles the
+   concise instruction and keeps `CLAUDE.md` importing the applicable `AGENTS.md`. Do not duplicate
+   that procedure here, and name in the report which skill made each instruction edit.
 3. Run the target's applicable checks. Limit repairs to the approved paths, and when a check reveals
    a required edit outside them, stop and request approval instead of widening the change.
 4. Confirm by rereading the instruction chain that each accepted file is reachable from a loaded
