@@ -23,6 +23,10 @@ jobs:
       - name: Install uv and Python
         uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9  # v9.0.0
         with:
+          # Pin CI's uv explicitly. Without this the action derives the version
+          # from `required-version` in pyproject.toml, which couples the tool
+          # CI validates against to a constraint meant for local checkouts.
+          version: "0.11.33"
           enable-cache: true
           python-version: ${{ matrix.python-version }}
 
