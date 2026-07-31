@@ -92,8 +92,8 @@ selector, section, or screenshot target.
 4. Enable content boundaries for page-sourced output.
 5. Use the bundled [research action policy](assets/research-policy.json),
    resolving the path from this skill directory. The policy denies every action
-   category except navigation, snapshots, clicks, scrolling, waits, reading,
-   and targeted getters.
+   category except browser launch, navigation, snapshots, screenshots, clicks,
+   scrolling, waits, reading, and targeted getters.
 6. Set the output limit to the smallest practical size for the defined artifact.
 7. Constrain allowed domains when the target and required asset domains are
    known and the fresh browser supports the restriction. Do not widen the domain
