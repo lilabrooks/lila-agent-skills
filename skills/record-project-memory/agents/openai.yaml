@@ -1,4 +1,0 @@
-interface:
-  display_name: "Record Project Memory"
-  short_description: "Capture a repository's existing project memory"
-  default_prompt: "Use $record-project-memory to assess this repository and propose the smallest evidence-supported project memory set; do not edit until I approve the file plan."
