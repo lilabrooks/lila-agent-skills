@@ -7,7 +7,7 @@
 This repository is the version-controlled source for Lila Brooks's reusable
 Agent Skills packages. Every direct child of `skills/` is independently
 installable and contains a required `SKILL.md` plus any supporting metadata,
-references, or scripts.
+references, scripts, or assets.
 
 [Browse the one-page skill catalog](https://lilabrooks.github.io/lila-agent-skills/)
 for a compact overview. This README and each package's `SKILL.md` remain the
@@ -17,6 +17,7 @@ canonical documentation.
 
 | Skill | Purpose | Notes |
 | --- | --- | --- |
+| `agent-browser-research-triage` | Decides when public-web research warrants `agent-browser` for rendered interaction, page triage, or visual evidence. | Uses isolated, read-only sessions with a bundled deny-by-default policy and keeps final factual sourcing on citation-capable tools. |
 | `clean-git-branches` | Audits and safely cleans local and remote Git branches while checking that default-branch refs stay synchronized. | Handles squash-merged branches, pruning, exact-SHA checks, and verified deletion. |
 | `github-merge-pull-request` | Inspects and merges an exact GitHub pull-request candidate. | Covers merge, squash, and rebase methods; head-SHA guards; queues; bypasses; and separate cleanup authority. |
 | `github-publish-changes` | Commits and pushes intended Git changes while preserving unrelated work. | Includes read-only preflight, exact-tree checks, edge-case references, and a changelog. |
@@ -44,6 +45,10 @@ root [CLAUDE.md](CLAUDE.md) imports those instructions for Claude Code.
 Use symlinks so installed skills always read the package tracked in this
 repository. Codex uses `~/.agents/skills/`; Claude Code uses
 `~/.claude/skills/`.
+
+`agent-browser-research-triage` depends on the separate
+[`agent-browser`](https://github.com/vercel-labs/agent-browser) CLI. The skill
+checks for it and never installs or configures it automatically.
 
 For example, from the repository root:
 
