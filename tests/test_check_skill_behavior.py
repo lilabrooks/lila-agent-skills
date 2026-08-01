@@ -91,7 +91,7 @@ def test_repository_behavioral_contracts_pass() -> None:
     result = run_python(BEHAVIOR_CHECK_SCRIPT, "--root", PROJECT_ROOT)
 
     assert result.returncode == 0, result.stderr
-    assert "Behavioral contract check passed: 8 skills, 18 scenarios" in result.stdout
+    assert "Behavioral contract check passed: 8 skills, 19 scenarios" in result.stdout
     assert "standard-commit-boundary: baseline" in result.stdout
 
 
