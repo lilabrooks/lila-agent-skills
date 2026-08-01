@@ -91,18 +91,24 @@ This workflow needs CliSpecForge 0.7.0 or newer, which is the first version with
 `clispecforge plan` and `clispecforge apply`. Compare the reported semantic
 version, not its text lexicographically.
 
-When the command is missing or older, report that Python 3.12 or newer and
-`pipx` are prerequisites, give this audited commit-pinned install step, and wait
-for the user:
+When the command is missing, report that Python 3.12 or newer and `pipx` are
+prerequisites, give this install step, and wait for the user:
 
 ```bash
-pipx install "git+https://github.com/lilabrooks/clispecforge.git@fb3e0c873c5662b91d44d484cae74e01b630d819"
+pipx install "git+https://github.com/lilabrooks/clispecforge.git@main"
 ```
 
-That commit reports version 0.7.0 and contains the offline `plan` and `apply`
-commands. Retain the full SHA because it identifies the exact source verified
-for this workflow. Do not substitute an unpinned branch. Do not run the
-install command unless the user separately asks for installation.
+When the installed command is older, give this explicit source migration and
+upgrade step instead:
+
+```bash
+pipx install --force "git+https://github.com/lilabrooks/clispecforge.git@main"
+```
+
+The `main` ref intentionally resolves to the newest commit when either command
+runs. CliSpecForge derives development versions from Git tags and commit
+distance, so `clispecforge --version` identifies post-release builds. Do not
+run either command unless the user separately asks for installation or upgrade.
 
 ### 3. Validate the specification
 

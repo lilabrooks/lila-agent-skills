@@ -200,11 +200,12 @@ version requirements are documented claims, and the behavioral fixture checks
 that the instruction to verify them is present, not that a given machine
 satisfies them.
 
-CliSpecForge 0.7.0 is pinned at commit
-`fb3e0c873c5662b91d44d484cae74e01b630d819` in the reported install command.
-On 2026-08-01, the `v0.7.0` tag resolved to that commit. The full SHA remains
-the exact source verified for `clispecforge-scaffold`. Recheck the remote
-reference and installed command before changing this pin.
+`clispecforge-scaffold` reports an install from CliSpecForge's `main` branch.
+This moving source deliberately selects the newest commit when installation or
+upgrade runs. CliSpecForge derives post-release versions from Git tags and
+commit distance so the installed command identifies the source revision. The
+skill still requires separate authorization before changing the user's
+installation and checks the installed version before using it.
 
 ### Credential and privacy checks
 
