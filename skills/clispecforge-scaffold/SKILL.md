@@ -100,9 +100,9 @@ pipx install "git+https://github.com/lilabrooks/clispecforge.git@fb3e0c873c5662b
 ```
 
 That commit reports version 0.7.0 and contains the offline `plan` and `apply`
-commands. It is pinned because a `v0.7.0` tag did not exist when this workflow
-was verified. Do not substitute an unpinned branch. Do not run the install
-command unless the user separately asks for installation.
+commands. Retain the full SHA because it identifies the exact source verified
+for this workflow. Do not substitute an unpinned branch. Do not run the
+install command unless the user separately asks for installation.
 
 ### 3. Validate the specification
 

@@ -200,11 +200,11 @@ version requirements are documented claims, and the behavioral fixture checks
 that the instruction to verify them is present, not that a given machine
 satisfies them.
 
-CliSpecForge 0.7.0 was present on its canonical `main` branch at commit
-`fb3e0c873c5662b91d44d484cae74e01b630d819` when `clispecforge-scaffold` was
-verified, but the corresponding `v0.7.0` tag did not yet exist. The skill uses
-that immutable commit in its reported install command. Replace the pin with a
-tagged release only after the remote tag and installed command are checked.
+CliSpecForge 0.7.0 is pinned at commit
+`fb3e0c873c5662b91d44d484cae74e01b630d819` in the reported install command.
+On 2026-08-01, the `v0.7.0` tag resolved to that commit. The full SHA remains
+the exact source verified for `clispecforge-scaffold`. Recheck the remote
+reference and installed command before changing this pin.
 
 ### Credential and privacy checks
 
