@@ -18,8 +18,8 @@ The full gate runs these checks in order:
 
 1. Ruff formatting and lint checks for repository Python.
 2. Strict mypy analysis for maintained Python utilities.
-3. Yamllint for skill metadata, Dependabot configuration, and GitHub Actions
-   workflows.
+3. Yamllint for skill metadata, citation metadata, Dependabot configuration, and
+   GitHub Actions workflows.
 4. Repository-specific semantic validation for Agent Skills packages.
 5. Deterministic behavioral contracts for the repository workflow skills.
 6. Pytest regression and edge-case tests.
@@ -161,6 +161,44 @@ hosted model because credentials, cost, model updates, and sampling variance
 would make repository verification less repeatable. Use isolated live-model
 evaluations as periodic evidence, with human-scored calibration data and no skill
 instructions loaded into the evaluator.
+
+### Licensing and attribution
+
+The original repository content is licensed under Apache-2.0 using the
+unmodified official license text. Apache-2.0 permits reuse and redistribution
+while requiring that applicable copyright and attribution notices survive into
+derivative distributions, which suits a skill collection meant to be copied into
+other people's agent hosts. The root `NOTICE` carries that attribution and stays
+informational: adding conditions there would create a non-standard licence that
+tools and reviewers cannot recognize.
+
+Vendored third-party files keep their own terms and their own license files:
+Compact Theme under `docs/theme/` is BSD-2-Clause, and its IBM Plex fonts are
+under the SIL Open Font License 1.1. Removing or relocating those license files
+would break the terms under which those files may be redistributed. The root
+README and the catalog both state the three-way split so a reader never has to
+infer which terms cover which files.
+
+`CITATION.cff` supplies citation metadata. It deliberately omits `version` and
+`date-released` because nothing in the gate would catch those fields going stale
+after a release. Yamllint checks the file as part of `make check`; GitHub
+validates the CFF schema itself when the file is pushed.
+
+### External command dependencies
+
+A skill may require a command this repository does not ship, as
+`agent-browser-research-triage` requires `agent-browser` and
+`clispecforge-scaffold` requires CliSpecForge 0.7.0 or newer. Such a skill must
+check for the command, state the minimum version when its workflow depends on
+one, and report the documented install step instead of installing anything
+itself. Silent installation would change a user's machine as a side effect of a
+workflow they asked for something else from, and it is not something a skill's
+own instructions can make safe.
+
+The repository does not test against those external commands in CI. Their
+version requirements are documented claims, and the behavioral fixture checks
+that the instruction to verify them is present, not that a given machine
+satisfies them.
 
 ### Credential and privacy checks
 

@@ -2,7 +2,7 @@
 
 [![Quality](https://github.com/lilabrooks/lila-agent-skills/actions/workflows/quality.yml/badge.svg?branch=main&event=push)](https://github.com/lilabrooks/lila-agent-skills/actions/workflows/quality.yml?query=branch%3Amain+event%3Apush)
 [![Coverage gate](https://img.shields.io/badge/coverage-%E2%89%A595%25-brightgreen)](QUALITY.md#tests-and-coverage)
-[![License: All rights reserved](https://img.shields.io/badge/license-all_rights_reserved-blue)](LICENSE)
+[![License: Apache 2.0](https://img.shields.io/badge/license-Apache_2.0-blue)](LICENSE)
 
 This repository is the version-controlled source for Lila Brooks's reusable
 Agent Skills packages. Every direct child of `skills/` is independently
@@ -19,6 +19,7 @@ canonical documentation.
 | --- | --- | --- |
 | `agent-browser-research-triage` | Decides when public-web research warrants `agent-browser` for rendered interaction, page triage, or visual evidence. | Uses isolated, read-only sessions with a bundled deny-by-default policy and keeps final factual sourcing on citation-capable tools. |
 | `clean-git-branches` | Audits and safely cleans local and remote Git branches while checking that default-branch refs stay synchronized. | Handles squash-merged branches, pruning, exact-SHA checks, and verified deletion. |
+| `clispecforge-scaffold` | Turns a settled Markdown CLI specification into a small greenfield Python CLI through a checked preview and an explicit apply. | Uses the separate CliSpecForge command for parsing, path validation, preview, and writes; needs version 0.7.0 or newer. |
 | `github-merge-pull-request` | Inspects and merges an exact GitHub pull-request candidate. | Covers merge, squash, and rebase methods; head-SHA guards; queues; bypasses; and separate cleanup authority. |
 | `github-publish-changes` | Commits and pushes intended Git changes while preserving unrelated work. | Includes read-only preflight, exact-tree checks, edge-case references, and a changelog. |
 | `prepare-agent-compatible-repository` | Audits and reconciles repository guidance for Codex and Claude Code. | Uses shared `AGENTS.md` rules, small `CLAUDE.md` adapters, scope checks, and explicit host differences. |
@@ -37,6 +38,11 @@ shared Agent Skills `name` and `description` frontmatter. Invoke it as
 `$write-repository-readme` in Codex or `/write-repository-readme` in Claude
 Code. Its `agents/openai.yaml` file changes Codex presentation only.
 
+`clispecforge-scaffold` is host-neutral in the same way. Invoke it as
+`$clispecforge-scaffold` in Codex or `/clispecforge-scaffold` in Claude Code. It
+describes tools by capability and uses ordinary shell commands, so the host
+supplies the generation and its own approval and file-writing capabilities.
+
 This repository keeps shared agent instructions in [AGENTS.md](AGENTS.md). The
 root [CLAUDE.md](CLAUDE.md) imports those instructions for Claude Code.
 
@@ -49,6 +55,11 @@ repository. Codex uses `~/.agents/skills/`; Claude Code uses
 `agent-browser-research-triage` depends on the separate
 [`agent-browser`](https://github.com/vercel-labs/agent-browser) CLI. The skill
 checks for it and never installs or configures it automatically.
+
+`clispecforge-scaffold` depends on the separate
+[CliSpecForge](https://github.com/lilabrooks/clispecforge) command, version
+0.7.0 or newer. The skill checks for it and never installs it, its provider
+extras, or any credential automatically.
 
 For example, from the repository root:
 
@@ -126,6 +137,20 @@ skill packages do not use the repository's Python environment.
 - Use any Agent Skills validator supplied by the active host alongside
   `make check`.
 
-## Copyright
+## License
 
-Copyright © 2026 Lila Brooks. All rights reserved. See [LICENSE](LICENSE).
+Copyright 2026 Lila Brooks.
+
+The original content of this repository is licensed under the Apache License,
+Version 2.0. See [LICENSE](LICENSE) for the full text and [NOTICE](NOTICE) for
+the attribution notice that Apache-2.0 asks redistributors to carry forward.
+
+Vendored third-party files keep their own terms:
+
+| Component | Location | License |
+| --- | --- | --- |
+| Original repository content | everything not listed below | Apache-2.0 |
+| Compact Theme CSS and JavaScript | `docs/theme/` | BSD-2-Clause ([license](docs/theme/LICENSE)) |
+| IBM Plex fonts | `docs/theme/fonts/` | SIL Open Font License 1.1 ([license](docs/theme/fonts/LICENSE.txt)) |
+
+To cite this repository, see [CITATION.cff](CITATION.cff).

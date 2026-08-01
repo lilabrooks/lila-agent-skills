@@ -20,16 +20,17 @@ RESEARCH_POLICY = (
 FixturePath: TypeAlias = tuple[str | int, ...]
 
 
+def skill_names() -> list[str]:
+    return sorted(
+        path.name
+        for path in (PROJECT_ROOT / "skills").iterdir()
+        if path.is_dir() and not path.name.startswith(".")
+    )
+
+
 def copy_behavior_repository(root: Path) -> Path:
-    for name in (
-        "github-publish-changes",
-        "github-merge-pull-request",
-        "prepare-agent-compatible-repository",
-        "clean-git-branches",
-        "verify-repository",
-        "write-repository-readme",
-        "agent-browser-research-triage",
-    ):
+    """Mirror every skill's SKILL.md so the checker sees a complete inventory."""
+    for name in skill_names():
         destination = root / "skills" / name
         destination.mkdir(parents=True)
         shutil.copy(PROJECT_ROOT / "skills" / name / "SKILL.md", destination)
@@ -90,7 +91,7 @@ def test_repository_behavioral_contracts_pass() -> None:
     result = run_python(BEHAVIOR_CHECK_SCRIPT, "--root", PROJECT_ROOT)
 
     assert result.returncode == 0, result.stderr
-    assert "Behavioral contract check passed: 7 skills, 16 scenarios" in result.stdout
+    assert "Behavioral contract check passed: 8 skills, 18 scenarios" in result.stdout
     assert "standard-commit-boundary: baseline" in result.stdout
 
 
@@ -101,13 +102,7 @@ def test_behavioral_contract_inventory_covers_every_skill() -> None:
     contract_ids = {
         contract["id"] for contract in contracts if isinstance(contract, dict)
     }
-    skill_ids = {
-        path.name
-        for path in (PROJECT_ROOT / "skills").iterdir()
-        if path.is_dir() and not path.name.startswith(".")
-    }
-
-    assert contract_ids == skill_ids
+    assert contract_ids == set(skill_names())
 
 
 def test_agent_browser_research_policy_is_deny_by_default() -> None:
