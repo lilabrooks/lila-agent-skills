@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use these Agent Skills, please cite this repository."
+title: "Lila Agent Skills"
+type: software
+authors:
+  - family-names: "Brooks"
+    given-names: "Lila"
+repository-code: "https://github.com/lilabrooks/lila-agent-skills"
+license: Apache-2.0
