@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Browser Research Triage"
+  short_description: "Route browser-heavy web research to agent-browser"
+  default_prompt: "Use $agent-browser-research-triage to decide whether agent-browser is worth using for this web research task."

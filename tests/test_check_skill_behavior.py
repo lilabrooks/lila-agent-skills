@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import shutil
 from pathlib import Path
 from typing import TypeAlias
@@ -9,6 +10,13 @@ import yaml
 from conftest import BEHAVIOR_CHECK_SCRIPT, PROJECT_ROOT, run_python
 
 FIXTURE = PROJECT_ROOT / "tests/fixtures/skill_behavior.yaml"
+RESEARCH_POLICY = (
+    PROJECT_ROOT
+    / "skills"
+    / "agent-browser-research-triage"
+    / "assets"
+    / "research-policy.json"
+)
 FixturePath: TypeAlias = tuple[str | int, ...]
 
 
@@ -20,7 +28,7 @@ def copy_behavior_repository(root: Path) -> Path:
         "clean-git-branches",
         "verify-repository",
         "write-repository-readme",
-        "record-project-memory",
+        "agent-browser-research-triage",
     ):
         destination = root / "skills" / name
         destination.mkdir(parents=True)
@@ -100,6 +108,25 @@ def test_behavioral_contract_inventory_covers_every_skill() -> None:
     }
 
     assert contract_ids == skill_ids
+
+
+def test_agent_browser_research_policy_is_deny_by_default() -> None:
+    policy = json.loads(RESEARCH_POLICY.read_text(encoding="utf-8"))
+
+    assert policy == {
+        "default": "deny",
+        "allow": [
+            "launch",
+            "navigate",
+            "snapshot",
+            "screenshot",
+            "click",
+            "scroll",
+            "wait",
+            "read",
+            "get",
+        ],
+    }
 
 
 def test_removed_compatibility_rule_fails_contract(tmp_path: Path) -> None:
