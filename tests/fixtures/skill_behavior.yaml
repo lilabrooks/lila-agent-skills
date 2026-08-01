@@ -59,8 +59,8 @@ contracts:
       - "Never read, set, or modify provider credentials, and never configure a model"
       - "specification that still fails `clispecforge spec check`."
       - "This workflow needs CliSpecForge 0.7.0 or newer"
-      - "fb3e0c873c5662b91d44d484cae74e01b630d819"
-      - "Do not substitute an unpinned branch."
+      - 'pipx install "git+https://github.com/lilabrooks/clispecforge.git@main"'
+      - 'pipx install --force "git+https://github.com/lilabrooks/clispecforge.git@main"'
       - "Do not modify the recorded response after planning it."
       - "`plan` writes nothing."
       - "separate overwrite approval"
@@ -81,8 +81,8 @@ contracts:
         mutation: "Skip clispecforge spec check."
       - pattern: "(?i)use this skill for (?:an )?existing repositor"
         mutation: "Use this skill for an existing repository."
-      - pattern: '(?i)install .*clispecforge\.git@(?:main|master|head)'
-        mutation: 'Install "git+https://github.com/lilabrooks/clispecforge.git@main".'
+      - pattern: '(?i)install .*clispecforge\.git@(?:v\d|[0-9a-f]{7,40})'
+        mutation: 'Install "git+https://github.com/lilabrooks/clispecforge.git@fb3e0c873c5662b91d44d484cae74e01b630d819".'
 
   - id: "github-merge-pull-request"
     path: "skills/github-merge-pull-request/SKILL.md"
