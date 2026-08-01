@@ -1,6 +1,6 @@
 ---
 name: clispecforge-scaffold
-description: Use when creating a small greenfield Python CLI from a Markdown specification through a bounded generation, checked file preview, and explicit CliSpecForge apply step.
+description: Create a small greenfield Python CLI from a settled Markdown specification with CliSpecForge's offline plan/apply handoff. Use in Codex or Claude Code when the user wants complete project files previewed and explicitly approved before they are written. Do not use for existing-repository changes, test-and-repair loops, Git work, or large systems.
 ---
 
 # CliSpecForge Scaffold
@@ -12,6 +12,18 @@ path, previews the complete contents, and performs the write.
 Generated code remains untrusted until it is reviewed and tested. This workflow
 ends at the write.
 
+## Host compatibility
+
+- Follow the active host's permission, sandbox, network, and confirmation rules.
+  This skill grants no additional authority.
+- Use the host's filesystem, shell, temporary-file, and user-confirmation
+  capabilities. Do not depend on any single host's tool names, directives, or invocation syntax.
+- The core workflow does not depend on `agents/openai.yaml`; that file supplies
+  optional Codex presentation only. Keep the shared workflow in this `SKILL.md`.
+- In a non-interactive task, stop after the plan and report the response path,
+  digest, destination, and complete preview. Resume the apply only in a later
+  interactive turn with the user's explicit approval.
+
 ## Scope
 
 Use this skill when every one of these holds:
@@ -19,7 +31,8 @@ Use this skill when every one of these holds:
 - the target is a small, new Python command-line tool;
 - a Markdown CLI specification is settled, or the user approves one first;
 - complete files are wanted rather than patches;
-- the user wants to see the files before they reach disk.
+- the user wants to see the complete proposed project files before they are
+  written to the destination.
 
 Route this work to the host agent's normal repository workflow instead:
 
@@ -36,7 +49,9 @@ cover it.
 
 ## Rules
 
-- Request explicit user approval before any generated file is written.
+- Request explicit user approval after a successful plan and before any proposed
+  project file is written. A build request or approved specification does not
+  authorize the apply.
 - Never install CliSpecForge, a provider SDK, or any other package
   automatically. Report the missing command and the documented install step,
   then stop and wait.
@@ -47,12 +62,12 @@ cover it.
   specification that still fails `clispecforge spec check`.
 - Apply the exact response that was previewed and approved. Prove it with the
   digest rather than assuming the file is unchanged.
+- Do not modify the recorded response after planning it. If it changes for any
+  reason, run `plan` again and request fresh approval.
 - Treat every generated file as untrusted input. Do not execute generated code
   as part of this workflow.
 - Keep the recorded response in a task-specific temporary location. Remove only
   the temporary artifacts this workflow created.
-- Describe tools by capability and use ordinary shell commands. Do not depend on
-  any single host's tool names, directives, or invocation syntax.
 
 ## Workflow
 
@@ -73,14 +88,21 @@ clispecforge --version
 ```
 
 This workflow needs CliSpecForge 0.7.0 or newer, which is the first version with
-`clispecforge plan` and `clispecforge apply`. When the command is missing or
-older, report the documented install step and wait for the user:
+`clispecforge plan` and `clispecforge apply`. Compare the reported semantic
+version, not its text lexicographically.
+
+When the command is missing or older, report that Python 3.12 or newer and
+`pipx` are prerequisites, give this audited commit-pinned install step, and wait
+for the user:
 
 ```bash
-pipx install "git+https://github.com/lilabrooks/clispecforge.git@v0.7.0"
+pipx install "git+https://github.com/lilabrooks/clispecforge.git@fb3e0c873c5662b91d44d484cae74e01b630d819"
 ```
 
-Do not run that command yourself unless the user asks for it.
+That commit reports version 0.7.0 and contains the offline `plan` and `apply`
+commands. It is pinned because a `v0.7.0` tag did not exist when this workflow
+was verified. Do not substitute an unpinned branch. Do not run the install
+command unless the user separately asks for installation.
 
 ### 3. Validate the specification
 
@@ -99,40 +121,57 @@ Read the file-output contract and follow it exactly:
 clispecforge skill show file-output-contract
 ```
 
+Stop and report an incomplete or unsupported CliSpecForge installation if this
+command fails. Do not reconstruct a missing contract from memory.
+
 Produce the whole scaffold in one response: a `FILE: relative/path` line for
 each file, followed by one fenced block holding that file's complete contents.
 No placeholders, no elisions, no diffs. Use an outer fence longer than any run
 of backticks inside a file so Markdown files survive intact.
 
-Save that response verbatim to a task-specific temporary location using the
-host's normal file-writing capability. Do not edit it afterward.
+Choose an explicit destination directory. If the user did not name one, use
+`./generated` as the proposed destination and include it in the approval
+request.
+
+Save the response verbatim as UTF-8 in a task-specific temporary directory using
+the host's normal file-writing capability. Creating this recorded response is a
+preparation step; it does not write the proposed files into the destination. Do
+not edit the response after saving it.
 
 ### 5. Preview and get approval
 
 ```bash
-clispecforge plan "$response_file" --out-dir ./generated
+clispecforge plan "$response_file" --out-dir "$out_dir"
 ```
 
 `plan` writes nothing. It parses the response, rejects unsafe paths and
 duplicate targets, prints every file's complete contents with terminal control
 characters escaped, and reports the response SHA-256 on its first line.
 
-Show the user the planned paths and contents, then request explicit user
-approval to write them. Record the reported digest.
+Require a successful exit. Show the user the exact destination, planned paths,
+and complete contents, then request explicit user approval to write them. Record
+the reported digest. In a non-interactive task, stop here.
+
+Inspect the planned targets before asking. If any target exists, list it and get
+separate overwrite approval; approval of the contents alone does not authorize
+replacement.
 
 ### 6. Apply the approved response
 
 ```bash
-clispecforge apply "$response_file" --out-dir ./generated --expect-sha256 <digest-from-plan>
+clispecforge apply "$response_file" --out-dir "$out_dir" --expect-sha256 <digest-from-plan>
 ```
 
 Passing the recorded digest is how you confirm the response has not changed
 since the preview. `apply` refuses to write anything when the response differs
 from the one that was approved.
 
-Existing files are refused unless the user explicitly authorizes overwriting,
-which adds `--force`. Ask before adding it, and say which files would be
-replaced.
+Add `--force` only when the user explicitly approved every existing target that
+will be replaced. Do not retry with `--force` after a refusal unless that
+approval is already recorded.
+
+Require a successful exit and confirm the command reported the expected writes.
+Do not execute, import, install, or test the generated code in this workflow.
 
 ### 7. Hand execution back
 
@@ -141,8 +180,9 @@ Git work belong to the host agent's normal workflows. Hand them back rather than
 continuing here. A successful write says the files are on disk; it says nothing
 about whether they are correct.
 
-Remove the temporary response file and any other artifact this workflow created.
-Leave the generated project in place.
+Remove the temporary response file and any other artifact this workflow created
+after success, rejection, or a terminal error. Leave the generated project in
+place after a successful apply.
 
 ## Report
 

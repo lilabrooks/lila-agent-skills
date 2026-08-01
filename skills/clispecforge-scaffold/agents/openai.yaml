@@ -1,4 +1,4 @@
 interface:
   display_name: "CliSpecForge Scaffold"
   short_description: "Scaffold a new Python CLI from a Markdown spec"
-  default_prompt: "Use $clispecforge-scaffold to turn this Markdown CLI specification into a reviewed Python scaffold."
+  default_prompt: "Use $clispecforge-scaffold to turn this settled Markdown CLI specification into a previewed, approval-gated Python scaffold."
