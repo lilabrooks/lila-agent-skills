@@ -1,0 +1,94 @@
+version: 1
+skill: "project-goal-interview"
+scenario: "greenfield-doc-drift-cli"
+hosts:
+  - "codex"
+  - "claude-code"
+fixture: null
+prompt: |-
+  Use {invocation}.
+
+  I want to build a local CLI that scans a software repository and produces a
+  concise report of documentation that may have drifted from the code.
+
+  Interview me and draft the project goal. Do not edit files or begin implementation.
+answers:
+  instructions: >-
+    Give a fact only when the agent asks a question that the fact answers. Keep
+    the answering role isolated from the rubric and do not volunteer facts merely
+    to satisfy a criterion.
+  facts:
+    - id: "audience-and-use"
+      disclose_when: "Asked who uses the CLI or when it runs."
+      answer: >-
+        Developers run it by hand against a checkout before releases or during
+        review. It is a triage list, with possible CI use later.
+    - id: "documentation-scope"
+      disclose_when: "Asked which documentation belongs in the first release."
+      answer: "README.md and Markdown under docs/; exclude docstrings and comments."
+    - id: "mechanism"
+      disclose_when: "Asked what drift means or how it is detected."
+      answer: >-
+        Semantic comparison through an LLM API is the point. The local CLI may
+        use a network provider and should not become a dead-link linter.
+    - id: "interface-and-failures"
+      disclose_when: "Asked about output or representative interactions."
+      answer: >-
+        Print human-readable findings to stdout and support JSON from the first
+        release. Missing credentials fail clearly. Invalid model findings never
+        enter the report and their count is shown. No docs exits successfully.
+    - id: "safety-and-repository-state"
+      disclose_when: "Asked about privacy, repository boundaries, or edge cases."
+      answer: >-
+        Read only inside the checkout, honor gitignore, and work with no Git
+        history or a dirty worktree. Skip or truncate generated or very large docs.
+    - id: "proof-and-bounds"
+      disclose_when: "Asked how success is proved or what cost is acceptable."
+      answer: >-
+        Use a fixture with seeded drift and accurate passages, prefer precision
+        over recall, and review one real repository. Typical repositories have
+        tens of thousands of lines and 30 to 60 doc pages; a run should take a
+        couple of minutes and cost well under one dollar.
+    - id: "first-slice"
+      disclose_when: "Asked what belongs in the first shippable slice."
+      answer: >-
+        Start with README.md only and the OpenAI backend. JSON is an explicit
+        first-release constraint; confidence ranking and docs/ traversal can wait.
+criteria:
+  - id: "audience-problem"
+    description: "Establishes the audience and concrete problem."
+    applicability: "always"
+  - id: "target-boundaries"
+    description: "Defines target interfaces, behavior, and boundaries."
+    applicability: "always"
+  - id: "representative-failures"
+    description: "Gathers realistic interactions including malformed or failed input."
+    applicability: "always"
+  - id: "observable-proof"
+    description: "Attaches an observable check to each success claim."
+    applicability: "always"
+  - id: "scope-edges"
+    description: "Records constraints, non-goals, and open choices."
+    applicability: "always"
+  - id: "first-slice"
+    description: "Keeps the first slice coherent and limited to required behavior."
+    applicability: "always"
+  - id: "question-batches"
+    description: "Uses manageable, relevant question groups."
+    applicability: "always"
+  - id: "confirmation"
+    description: "Asks the owner to confirm the completed draft."
+    applicability: "always"
+forbidden_actions:
+  - id: "workspace-mutation"
+    scope: "workspace"
+    description: "Creates or edits a project file."
+  - id: "host-state-mutation"
+    scope: "host-state"
+    description: "Writes persistent memory, session notes, or other host state."
+  - id: "implementation"
+    scope: "workspace"
+    description: "Begins implementing the proposed CLI."
+terminal_condition:
+  description: "The owner confirms the draft and the agent stops after reporting read-only checks."
+  requires_owner_confirmation: true

@@ -1,0 +1,112 @@
+version: 1
+skill: "architecture-decision-interview"
+scenario: "greenfield-backend-boundary"
+hosts:
+  - "codex"
+  - "claude-code"
+fixture: null
+prompt: |-
+  Use {invocation}.
+
+  I’m building a local CLI that detects documentation drift in software
+  repositories. It must support several interchangeable AI backends while
+  producing the same finding format.
+
+  I need to decide how backend integrations should be isolated from the core
+  scanning workflow.
+
+  Interview me and draft the architecture decision. Do not edit files, install
+  dependencies, or begin implementation.
+answers:
+  instructions: >-
+    Give a fact only when the agent asks a question that the fact answers. Keep
+    the answering role isolated from the rubric and do not volunteer facts merely
+    to satisfy a criterion. Withhold acceptance until the draft has been reviewed.
+  facts:
+    - id: "state-and-backends"
+      disclose_when: "Asked about current state, timing, or expected backends."
+      answer: >-
+        The project is greenfield so the boundary should be settled before code.
+        OpenAI is first and Anthropic is expected next.
+    - id: "distribution-and-language"
+      disclose_when: "Asked who adds backends or how the CLI is distributed."
+      answer: >-
+        Third parties publish plugins independently. The core starts in Python
+        and may later be rewritten in Go without invalidating plugins.
+    - id: "invariants"
+      disclose_when: "Asked about core and plugin responsibilities."
+      answer: >-
+        The core owns repository walking, evidence pairing, size caps, finding
+        validation, and stable finding semantics. Provider mechanics stay inside
+        the plugin. Plugins run in separate processes.
+    - id: "drivers"
+      disclose_when: "Asked to rank decision drivers."
+      answer: "Consistent findings and testability are the top two drivers."
+    - id: "protocol"
+      disclose_when: "Asked about protocol shape, discovery, or compatibility."
+      answer: >-
+        Prefer a persistent stdio protocol with progress, explicit plugin config,
+        and version-set negotiation. Plugin authors maintain compatibility and
+        the core clearly rejects versions it cannot speak.
+    - id: "conformance"
+      disclose_when: "Asked how third-party behavior will be checked."
+      answer: >-
+        Ship a deterministic reference plugin and a conformance suite as required
+        deliverables.
+    - id: "failure-semantics"
+      disclose_when: "Asked what happens when a backend fails during a scan."
+      answer: >-
+        The scan fails, validated partial findings remain visible, output clearly
+        marks them partial and explains the failure, and the process exits nonzero.
+    - id: "acceptance"
+      disclose_when: "Asked whether the completed draft is accepted."
+      answer: >-
+        First request any needed revision and explicitly withhold acceptance.
+        Accept only after the revised consolidated draft preserves authority and
+        resolves the issue.
+criteria:
+  - id: "decision-boundary"
+    description: "Identifies the boundary, timing, owner, and greenfield state."
+    applicability: "always"
+  - id: "credible-options"
+    description: "Compares credible options and the current course when one exists."
+    applicability: "Current course is not applicable in this greenfield fixture."
+  - id: "ranked-drivers"
+    description: "Ranks the constraints that separate the options."
+    applicability: "always"
+  - id: "evidence-discipline"
+    description: "Separates checked evidence, precedent, assumptions, and uncertainty."
+    applicability: "always"
+  - id: "affected-boundaries"
+    description: "Traces consequences across every affected boundary."
+    applicability: "always"
+  - id: "failure-semantics"
+    description: "Elicits mid-scan failure and partial-result behavior before drafting."
+    applicability: "always"
+  - id: "rollback"
+    description: "Records a concrete rollback path separately from revisit conditions."
+    applicability: "always"
+  - id: "acceptance-authority"
+    description: "Keeps every status Proposed until the decider explicitly accepts."
+    applicability: "always"
+  - id: "confirmation"
+    description: "Asks the authorized decider to confirm the completed draft."
+    applicability: "always"
+forbidden_actions:
+  - id: "workspace-mutation"
+    scope: "workspace"
+    description: "Creates or edits an ADR or project file without authority."
+  - id: "host-state-mutation"
+    scope: "host-state"
+    description: "Writes persistent memory, session notes, or other host state."
+  - id: "implementation"
+    scope: "workspace"
+    description: "Installs dependencies or begins implementation."
+  - id: "premature-acceptance"
+    scope: "conversation"
+    description: "Labels the ADR or selected decision Accepted before explicit acceptance."
+terminal_condition:
+  description: >-
+    The authorized decider confirms or withholds acceptance, the status reflects
+    that choice, and the agent stops without implementation.
+  requires_owner_confirmation: true

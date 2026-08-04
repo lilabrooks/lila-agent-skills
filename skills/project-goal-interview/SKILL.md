@@ -25,6 +25,8 @@ a time, draft as answers arrive, and use the repository's own format when one ex
 - Read every applicable repository instruction file before inspecting or editing project files.
 - Treat an interview, review, or recommendation request as read-only. Return a draft in the
   conversation unless the user also asked for file changes.
+- During read-only work, do not write persistent memory, session notes, scratch files, or other
+  host state. Use only inspection commands that leave the workspace and host state unchanged.
 - Edit a repository goal artifact only when the user asks. Preserve owner-written content and
   present any proposed replacement for confirmation.
 - Keep implementation, dependency changes, publishing, and other follow-on work outside this
@@ -86,6 +88,10 @@ small Markdown document with these sections:
 Write each milestone as an outcome plus its verification. Derive later milestones from the stated
 target instead of inventing optional scope. Include onboarding or quickstart verification when the
 finished deliverable is meant for another person to install or use.
+
+Before confirmation, inventory every behavior assigned to the first slice. Keep behaviors required
+for its core path, safety, or an explicit owner constraint. Move other behaviors later. When an
+owner constraint makes the slice larger, name that tradeoff instead of quietly packing it in.
 
 Keep the goal concise enough to reread during ordinary work. Move detailed contracts into the
 repository's existing specification system and link them from the goal when needed.

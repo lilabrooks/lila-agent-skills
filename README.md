@@ -114,7 +114,9 @@ Git hooks are optional. Use `make check` before a standard commit; GitHub
 Actions runs the same target.
 
 The full gate checks formatting, lint, types, YAML, package structure,
-behavioral contracts, tests, coverage, probable credentials, and Git whitespace.
+behavioral contracts, live-eval scenario structure, tests, coverage, probable
+credentials, and Git whitespace. Hosted-model eval runs remain manual and store
+their generated transcripts and scores outside the tracked tree.
 
 The behavioral contract check covers every current skill and tests the documented
 authority boundaries between verification, publishing, pull-request merging,

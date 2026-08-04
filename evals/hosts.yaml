@@ -1,0 +1,8 @@
+version: 1
+hosts:
+  codex:
+    label: "Codex"
+    invocation_template: "${skill}"
+  claude-code:
+    label: "Claude Code"
+    invocation_template: "/{skill}"

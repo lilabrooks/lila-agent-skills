@@ -20,6 +20,9 @@ This repository stores Lila Brooks's personal Agent Skills. Each direct child of
 - Update `skills/github-publish-changes/CHANGELOG.md` whenever that skill changes.
 - Update the root inventory whenever the skill set changes.
 - Keep repository quality decisions and exceptions current in `QUALITY.md`.
+- Keep live-model eval cases under `evals/<skill>/<scenario>/case.yaml`. Update affected cases
+  when a skill changes, keep optional repository fixtures inside the scenario directory, and keep
+  generated transcripts and scores under the ignored `.eval-results/` directory.
 - Update `uv.lock` whenever development dependencies change.
 
 ## Verification

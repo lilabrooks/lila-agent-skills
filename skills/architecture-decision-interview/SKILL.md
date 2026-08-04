@@ -26,6 +26,8 @@ in the repository's existing ADR format.
 - Read every applicable repository instruction file before inspecting or editing project files.
 - Treat an interview, review, or recommendation request as read-only. Return a draft in the
   conversation unless the user also asked for an ADR file change.
+- During read-only work, do not write persistent memory, session notes, scratch files, or other
+  host state. Use only inspection commands that leave the workspace and host state unchanged.
 - Keep implementation outside this skill. A request to interview, recommend, or write an ADR does
   not authorize code changes, dependency installation, migration, deployment, or publishing.
 - Never mark an ADR accepted, supersede an accepted decision, or reverse work without the authority
@@ -62,9 +64,12 @@ to correct them.
 6. **Evidence and uncertainty.** Match each mechanism claim to repository evidence, a current
    primary source, or a clearly labeled assumption. State which mechanism claims were checked and
    which remain uncertain.
-7. **Consequences and exit.** Ask what each option makes easier or harder, which files or systems
-   must change together, how migration and rollback work, and which observable condition should
-   reopen the decision.
+7. **Failure semantics.** Trace a representative mid-operation failure. Decide whether work stops,
+   retries, or continues; what partial output survives; how incomplete results are labeled; and
+   which observable status, error, or exit behavior prevents them from looking complete.
+8. **Consequences and exit.** Ask what each option makes easier or harder and which files or systems
+   must change together. Record migration and rollback separately from the observable conditions
+   that should reopen the decision.
 
 Preserve quiet real-world samples as evidence of the base rate. Avoid extending a sample merely to
 obtain a preferred result. Flag any experiment, instrumentation, or validation step that changes
@@ -81,7 +86,8 @@ Use the decision drivers to compare every credible option. For each option, reco
 - evidence checked and important unknowns;
 - expected benefits and costs;
 - security, privacy, operational, compatibility, and maintenance effects that apply;
-- migration, rollback, and failure containment;
+- failure containment and partial-result semantics;
+- migration and rollback;
 - the observable trigger for reconsideration.
 
 State a recommendation when the user asked for one. Explain why it wins against the ranked drivers
@@ -103,16 +109,22 @@ record with:
 4. options considered with checked evidence;
 5. decision and scope;
 6. consequences and required follow-up;
-7. verification plan;
-8. rollback or revisit condition.
+7. failure semantics and containment;
+8. verification plan;
+9. migration and rollback;
+10. revisit conditions.
 
-Use a proposed or draft status until the authorized decider accepts it. Name unsupported claims and
+Choosing an option during the interview leaves the ADR Proposed. Reserve `Accepted` for an explicit
+acceptance statement from the authorized decider. Before that statement, describe the selected
+option as proposed or chosen without labeling the decision accepted. Name unsupported claims and
 unresolved questions in the record rather than sanding them into certainty.
 
 ## Confirm and finish
 
 Read the draft back against the interview. Confirm that alternatives are credible, consequences
-cover every affected boundary, and the rollback condition is observable.
+cover every affected boundary, failure semantics are complete, and rollback and reconsideration
+conditions are separately observable. Ask the authorized decider directly whether the draft is
+confirmed. A revision request or withheld acceptance leaves its status Proposed.
 
 End after the requested ADR draft or file update. Report the evidence checked, remaining
 uncertainties, files changed, and validation performed. Wait for separate authority before starting
