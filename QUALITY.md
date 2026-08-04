@@ -147,7 +147,8 @@ verification, shared agent-instruction imports, nested scope,
 audit-versus-repair boundaries, repository-readiness uncertainty, read-only
 branch and repository audits, explicit cross-skill handoffs, README evidence and
 edit boundaries, rendered-view claims, table-of-contents and relative-link
-checks, documented-command safety,
+checks, documented-command safety, goal-interview edit boundaries and observable
+success checks, architecture-decision evidence and ADR-only scope,
 recorded-SHA deletion evidence, and commit, push, merge, bypass, delayed-merge,
 repair, or branch-deletion authorization boundaries. Authorization and
 verification checks are hard gates in their scenarios. Contract mutation
@@ -161,6 +162,29 @@ hosted model because credentials, cost, model updates, and sampling variance
 would make repository verification less repeatable. Use isolated live-model
 evaluations as periodic evidence, with human-scored calibration data and no skill
 instructions loaded into the evaluator.
+
+### Live-model eval scenarios
+
+Tracked live-model cases use `evals/<skill>/<scenario>/case.yaml`. The scenario is
+the unit because a greenfield interview and an existing-repository interview need
+different fixtures, answer conditions, and applicability rules. A scenario may
+carry a `fixture/` directory beside its case. Pytest enforces the directory shape,
+case fields, skill and scenario identity, host references, fixture resolution,
+and unique criterion and action identifiers during `make check`.
+
+Each case records one host-neutral prompt using `{invocation}`, a conditional
+answer bank, human-scored criteria, forbidden actions with explicit mutation
+scope, and a terminal condition. The answering role must not see the rubric.
+The evaluated agent must not see the answer bank or prior results. Preserve the
+complete visible transcript because turn order, question ownership, confirmation,
+and state transitions cannot be reconstructed from the final artifact.
+
+`evals/hosts.yaml` defines invocation syntax only. Record global instructions,
+persistent-memory writes, authorization notices, date changes, and other host
+effects in the run metadata so they are not silently attributed to a skill.
+Score workspace mutation and host-state mutation separately. Store raw JSONL,
+readable transcripts, and scored results under ignored `.eval-results/`; do not
+make generated results part of the deterministic gate.
 
 ### Licensing and attribution
 

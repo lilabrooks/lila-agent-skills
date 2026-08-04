@@ -18,11 +18,13 @@ canonical documentation.
 | Skill | Purpose | Notes |
 | --- | --- | --- |
 | `agent-browser-research-triage` | Decides when public-web research warrants `agent-browser` for rendered interaction, page triage, or visual evidence. | Uses isolated, read-only sessions with a bundled deny-by-default policy and keeps final factual sourcing on citation-capable tools. |
+| `architecture-decision-interview` | Works through a consequential architecture choice and records the result as an ADR. | Checks repository evidence, credible alternatives, consequences, reversibility, and the authority boundary between a proposed decision and implementation. |
 | `clean-git-branches` | Audits and safely cleans local and remote Git branches while checking that default-branch refs stay synchronized. | Handles squash-merged branches, pruning, exact-SHA checks, and verified deletion. |
 | `clispecforge-scaffold` | Turns a settled Markdown CLI specification into a small greenfield Python CLI through a checked preview and an explicit apply. | Uses the separate CliSpecForge command for parsing, path validation, preview, and writes; needs version 0.7.0 or newer. |
 | `github-merge-pull-request` | Inspects and merges an exact GitHub pull-request candidate. | Covers merge, squash, and rebase methods; head-SHA guards; queues; bypasses; and separate cleanup authority. |
 | `github-publish-changes` | Commits and pushes intended Git changes while preserving unrelated work. | Includes read-only preflight, exact-tree checks, edge-case references, and a changelog. |
 | `prepare-agent-compatible-repository` | Audits and reconciles repository guidance for Codex and Claude Code. | Uses shared `AGENTS.md` rules, small `CLAUDE.md` adapters, scope checks, and explicit host differences. |
+| `project-goal-interview` | Turns a project idea or vague brief into a concrete, testable goal. | Covers target behavior, realistic examples, success checks, constraints, non-goals, and a first shippable slice. |
 | `verify-repository` | Runs evidence-based repository readiness, QA, coverage, and hygiene audits. | Includes a read-only repository audit script. |
 | `write-repository-readme` | Creates, audits, and revises README files for new or existing repositories. | Checks structure, navigation, length, rendered flow, links, commands, badges, and repository facts. |
 
@@ -42,6 +44,12 @@ Code. Its `agents/openai.yaml` file changes Codex presentation only.
 `$clispecforge-scaffold` in Codex or `/clispecforge-scaffold` in Claude Code. It
 describes tools by capability and uses ordinary shell commands, so the host
 supplies the generation and its own approval and file-writing capabilities.
+
+`project-goal-interview` and `architecture-decision-interview` use the same
+shared package shape. Invoke them with `$project-goal-interview` and
+`$architecture-decision-interview` in Codex, or `/project-goal-interview` and
+`/architecture-decision-interview` in Claude Code. Their workflows live entirely
+in `SKILL.md`; optional `agents/openai.yaml` files change Codex presentation only.
 
 This repository keeps shared agent instructions in [AGENTS.md](AGENTS.md). The
 root [CLAUDE.md](CLAUDE.md) imports those instructions for Claude Code.
@@ -106,7 +114,9 @@ Git hooks are optional. Use `make check` before a standard commit; GitHub
 Actions runs the same target.
 
 The full gate checks formatting, lint, types, YAML, package structure,
-behavioral contracts, tests, coverage, probable credentials, and Git whitespace.
+behavioral contracts, live-eval scenario structure, tests, coverage, probable
+credentials, and Git whitespace. Hosted-model eval runs remain manual and store
+their generated transcripts and scores outside the tracked tree.
 
 The behavioral contract check covers every current skill and tests the documented
 authority boundaries between verification, publishing, pull-request merging,

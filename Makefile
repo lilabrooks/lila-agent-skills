@@ -1,5 +1,5 @@
 PYTHON_DIRS := scripts tests skills/github-publish-changes/scripts skills/verify-repository/scripts
-YAML_PATHS := .yamllint.yaml .github/dependabot.yml .github/workflows skills/*/agents/openai.yaml tests/fixtures/*.yaml CITATION.cff
+YAML_PATHS := .yamllint.yaml .github/dependabot.yml .github/workflows evals/*.yaml evals/*/*/*.yaml skills/*/agents/openai.yaml tests/fixtures/*.yaml CITATION.cff
 
 .PHONY: check basic-commit-check format format-check lint typecheck yaml-check skills-check behavior-check test secrets secrets-baseline diff-check staged-diff-check
 

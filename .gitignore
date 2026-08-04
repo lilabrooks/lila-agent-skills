@@ -17,3 +17,4 @@ CLAUDE.local.md
 !.env.example
 .codex-skill-work/
 .skill-tests/
+.eval-results/
