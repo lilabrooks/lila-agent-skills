@@ -147,7 +147,8 @@ verification, shared agent-instruction imports, nested scope,
 audit-versus-repair boundaries, repository-readiness uncertainty, read-only
 branch and repository audits, explicit cross-skill handoffs, README evidence and
 edit boundaries, rendered-view claims, table-of-contents and relative-link
-checks, documented-command safety,
+checks, documented-command safety, goal-interview edit boundaries and observable
+success checks, architecture-decision evidence and ADR-only scope,
 recorded-SHA deletion evidence, and commit, push, merge, bypass, delayed-merge,
 repair, or branch-deletion authorization boundaries. Authorization and
 verification checks are hard gates in their scenarios. Contract mutation

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Architecture Decision Interview"
+  short_description: "Turn architecture choices into clear ADRs"
+  default_prompt: "Use $architecture-decision-interview to work through and document this architecture decision."

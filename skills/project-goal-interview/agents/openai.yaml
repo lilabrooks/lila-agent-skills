@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Goal Interview"
+  short_description: "Define a concrete, testable project goal"
+  default_prompt: "Use $project-goal-interview to define and document this project goal."

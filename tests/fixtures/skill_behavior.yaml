@@ -210,6 +210,47 @@ contracts:
       - pattern: "(?i)browser observations alone are enough for factual claims"
         mutation: "Browser observations alone are enough for factual claims."
 
+  - id: "project-goal-interview"
+    path: "skills/project-goal-interview/SKILL.md"
+    required_literals:
+      - "Treat an interview, review, or recommendation request as read-only."
+      - "Edit a repository goal artifact only when the user asks."
+      - "Inspect the codebase before asking questions"
+      - "including one realistic edge or malformed input."
+      - "Push until every success claim has an observable check."
+      - "Confirm the finished goal with the user"
+      - "Keep implementation, dependency changes, publishing, and other follow-on work outside this"
+      - "Run this skill as `$project-goal-interview` in Codex or `/project-goal-interview` in Claude Code."
+      - "The core workflow does not"
+      - "depend on `agents/openai.yaml`."
+      - "Keep Claude Code dynamic-context syntax, Claude-only frontmatter, Codex directives, and"
+    forbidden:
+      - pattern: "(?i)an interview request authorizes repository edits"
+        mutation: "An interview request authorizes repository edits."
+      - pattern: "(?i)invent optional scope to fill the milestone list"
+        mutation: "Invent optional scope to fill the milestone list."
+
+  - id: "architecture-decision-interview"
+    path: "skills/architecture-decision-interview/SKILL.md"
+    required_literals:
+      - "Treat an interview, review, or recommendation request as read-only."
+      - "Keep implementation outside this skill."
+      - "Read accepted decisions and governing contracts"
+      - "State which mechanism claims were checked"
+      - "For costly or hard-to-reverse choices, seek an independent review"
+      - "Never mark an ADR accepted"
+      - "Wait for separate authority before starting"
+      - "Run this skill as `$architecture-decision-interview` in Codex or"
+      - "`/architecture-decision-interview` in Claude Code."
+      - "The core workflow does not"
+      - "depend on `agents/openai.yaml`."
+      - "Keep Claude Code dynamic-context syntax, Claude-only frontmatter, Codex directives, and"
+    forbidden:
+      - pattern: "(?i)an ADR interview authorizes implementation"
+        mutation: "An ADR interview authorizes implementation."
+      - pattern: "(?i)mark the ADR accepted without the decider"
+        mutation: "Mark the ADR accepted without the decider."
+
 scenarios:
   - id: "standard-commit-boundary"
     prompt: >-
